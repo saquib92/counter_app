@@ -2,6 +2,9 @@ import 'package:counter_app/cubit/counter_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'bloc/counter_bloc.dart';
+import 'inc_dec_page.dart';
+
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -9,7 +12,8 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final counterCubit = BlocProvider.of<CounterCubit>(context);
+    // final counterCubit = BlocProvider.of<CounterCubit>(context);
+    // final counterBloc = BlocProvider.of<CounterBloc>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -22,35 +26,26 @@ class MyHomePage extends StatelessWidget {
             const Text(
               'You have pushed the button this many times:',
             ),
-            BlocBuilder(
-                bloc: counterCubit,
+            BlocBuilder<CounterBloc, int>(
+                // bloc: counterBloc,
                 builder: (context, counter) {
-                  return Text(
-                    '$counter',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  );
-                }),
+              return Text(
+                '$counter',
+                style: Theme.of(context).textTheme.headlineMedium,
+              );
+            }),
           ],
         ),
       ),
-      // floatingActionButton: Column(
-      //   mainAxisSize: MainAxisSize.min,
-      //   children: [
-      //     FloatingActionButton(
-      //       onPressed: () => counterCubit.increment(),
-      //       tooltip: 'Increment',
-      //       child: const Icon(Icons.add),
-      //     ),
-      //     const SizedBox(
-      //       height: 20,
-      //     ),
-      //     FloatingActionButton(
-      //       onPressed: () => counterCubit.decrement(),
-      //       tooltip: 'Decrement',
-      //       child: const Icon(Icons.remove),
-      //     ),
-      //   ],
-      // ),
+      floatingActionButton: FloatingActionButton(
+        heroTag: 'nextPageButton',
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const IncDecPage(),
+          ));
+        },
+        child: const Icon(Icons.navigate_next_sharp),
+      ),
     );
   }
 }
