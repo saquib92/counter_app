@@ -1,3 +1,3 @@
 # flutter_sample
 
-this is a new read me line
+Created Counter_APP and managed the state of the app using Bloc, Cubit.
